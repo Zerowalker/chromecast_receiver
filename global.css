@@ -1,7 +1,9 @@
 html{
     height: 100%;
 	width: 100%;
-	background-color: #666;
+	margin:0;
+	padding:0;
+
   }
 
   body{
@@ -11,8 +13,8 @@ html{
     text-align:center;
     margin: 0;
     padding: 0;
-    border: 0;
-    background: black;
+	border: 0;
+	background-color: gray;;
   }
 
 a {
