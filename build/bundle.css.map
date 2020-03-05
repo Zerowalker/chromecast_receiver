@@ -1,8 +1,12 @@
 {
   "version": 3,
   "file": "bundle.css",
-  "sources": [],
-  "sourcesContent": [],
+  "sources": [
+    "..\\..\\App.svelte"
+  ],
+  "sourcesContent": [
+    "<script>\n  const namespace = \"urn:x-cast:es.offd.gnu\";\n  let url = \"[ No url ]\";\n  function main() {\n    function setStatus(msg) {\n      if (msg) {\n        status.classList.remove(\"empty\");\n      } else {\n        status.classList.add(\"empty\");\n      }\n      status.textContent = msg;\n    }\n\n    cast.receiver.logger.setLevelValue(0);\n    window.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();\n    castReceiverManager.onReady = function(event) {\n      window.castReceiverManager.setApplicationState(\"Application ready\");\n      setStatus(\"Waiting for address\");\n    };\n\n    // create a CastMessageBus to handle messages for a custom namespace\n    window.messageBus = window.castReceiverManager.getCastMessageBus(namespace);\n\n    // handler for the CastMessageBus message event\n    window.messageBus.onMessage = function(event) {\n      var msg = JSON.parse(event.data);\n      if (msg.url) {\n        url = msg.url;\n      }\n      window.messageBus.send(event.senderId, event.data);\n    };\n\n    // initialize the CastReceiverManager with an application status message\n    window.castReceiverManager.start({ statusText: \"Application is starting\" });\n  }\n\n  try {\n    main();\n  } catch (e) {\n    console.log(e);\n  }\n</script>\n\n<style>\n  #main {\n    width: 100%;\n    height: 100%;\n    background: gray;\n  }\n</style>\n\n<div id=\"main\">\n  <h1>En gnu!!</h1>\n  <div id=\"main\" class=\"fade\">\n    <h1>:D</h1>\n    <div>{url}</div>\n  </div>\n  <div id=\"status\" class=\"empty\" />\n</div>\n"
+  ],
   "names": [],
-  "mappings": ""
+  "mappings": "AA4CE,KAAK,eAAC,CAAC,AACL,KAAK,CAAE,IAAI,CACX,MAAM,CAAE,IAAI,CACZ,UAAU,CAAE,IAAI,AAClB,CAAC"
 }
